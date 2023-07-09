@@ -1,0 +1,33 @@
+"Area", "Housing","Transportation","FoodCosts","AverageIncomeofArea","CostIndex"
+"Barking and Dagenham", 125000, Bus, 200, 25000, 20.0
+"Barnet", 320000, Tube, 350, 45000, 40.0
+"Bexley", 180000, Bus, 250, 30000, 70.0
+"Brent", 290000, Tube, 300, 40000
+"Bromley", 260000, Train, 280, 40000
+"Camden", 350000, Tube, 400, 50000
+"Croydon", 220000, Tram, 250, 35000
+"Ealing", 280000, Tube, 300, 45000
+"Enfield", 210000, Train, 280, 35000
+"Greenwich", 180000, DLR, 220, 30000
+"Hackney", 240000, Overground, 300, 35000
+"Hammersmith and Fulham", 380000, Tube, 450, 55000
+"Haringey", 260000, Overground, 320, 40000
+"Harrow", 300000, Train, 350, 45000
+"Havering", 200000, Bus, 220, 30000
+"Hillingdon", 250000, Train, 280, 40000
+"Hounslow", 240000, Tube, 300, 35000
+"Islington", 320000, Tube, 400, 50000
+"Kensington and Chelsea", 500000, Tube, 550, 65000
+"Kingston upon Thames", 280000, Train, 320, 45000
+"Lambeth", 260000, Tube, 320, 35000
+"Lewisham", 210000, DLR, 250, 30000
+"Merton", 280000, Train, 320, 45000
+"Newham", 190000, Tube, 250, 30000
+"Redbridge", 250000, Train, 280, 40000
+"Richmond upon Thames", 400000, Train, 420, 55000
+"Southwark", 290000, Tube, 350, 40000
+"Sutton", 220000, Train, 250, 35000
+"Tower Hamlets", 280000, DLR, 300, 40000
+"Waltham Forest", 220000, Overground, 280, 35000
+"Wandsworth", 320000, Tube, 400, 45000
+"Westminster", 450000, Tube, 500, 60000

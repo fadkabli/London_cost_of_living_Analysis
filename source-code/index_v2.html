@@ -1,0 +1,98 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Cost of Living Bubble Chart - v1</title>
+  <style>
+    /* Set the font style */
+    body {
+        font: 12px Arial;
+    }
+
+    /* Style the tooltip */
+    .tooltip {
+        background-color: rgba(0, 0, 0, 0.8);
+        color: white;
+        border-radius: 5px;
+        padding: 10px;
+        font-size: 14px;
+        opacity: 0;
+        position: absolute;
+        z-index: 1;
+    }
+  </style>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+  <h1>Cost of Living Bubble Chart - Bubble Chart of Factors Contributing to Cost of Living in London </h1>
+  <div id="chart"></div>
+
+  <script>
+    // Set the dimensions of the chart
+    var margin = { top: 20, right: 20, bottom: 30, left: 50 },
+        width = 600 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
+
+  // Define the data
+var data = [
+  { borough: "Barking and Dagenham", cost_of_living: 20, housing: "low", transportation: "high", food: "low" },
+  { borough: "Staten Island", cost_of_living: 40, housing: "high", transportation: "low", food: "high" },
+  { borough: "Staten Island", cost_of_living: 40, housing: "high", transportation: "low", food: "high" },
+  { borough: "Staten Island", cost_of_living: 40, housing: "high", transportation: "low", food: "high" },
+  { borough: "Staten Island", cost_of_living: 40, housing: "high", transportation: "low", food: "high" }
+];
+
+// Create the SVG container
+var svg = d3.select("#chart")
+    .append("svg")
+    .attr("width", 500)
+    .attr("height", 500);
+
+// Define the scales
+var sizeScale = d3.scaleLinear()
+    .domain([0, d3.max(data, function(d) { return d.cost_of_living; })])
+    .range([10, 50]);
+
+var colorScale = d3.scaleOrdinal(d3.schemeCategory10);
+
+// Define the tooltip
+var tooltip = d3.select("#chart")
+    .append("div")
+    .style("position", "absolute")
+    .style("visibility", "hidden")
+    .style("background-color", "white")
+    .style("padding", "5px")
+    .style("border", "1px solid black")
+    .style("border-radius", "5px");
+
+// Append the bubbles to the chart
+svg.selectAll("circle")
+    .data(data)
+    .enter()
+    .append("circle")
+    .attr("cx", function(d) { return Math.random() * (width - sizeScale(d.cost_of_living) * 2) + sizeScale(d.cost_of_living); })
+    .attr("cy", function(d) { return Math.random() * (height - sizeScale(d.cost_of_living) * 2) + sizeScale(d.cost_of_living); })
+    .attr("r", function(d) { return sizeScale(d.cost_of_living); })
+    .style("fill", function(d, i) { return colorScale(i); })
+    .on("mouseover", function(d) { // Show tooltip on mouseover
+        tooltip.html("Cost of living: " + d.cost_of_living + "<br>" + "Housing: " + d.housing + "<br>" + "Transportation: " + d.transportation + "<br>" + "Food: " + d.food)
+            .style("left", d3.event.pageX + "px")
+            .style("top", d3.event.pageY + "px")
+            .style("opacity", 0.9);
+    })
+    .on("mousemove", function(d) { // Update tooltip position on mousemove
+        tooltip.style("left", d3.event.pageX + 10 + "px")
+            .style("top", d3.event.pageY + 10 + "px");
+    })
+    .on("mouseout", function(d) { // Hide tooltip on mouseout
+        tooltip.style("visibility", "hidden");
+    });
+
+    // Append the tooltip to the chart
+    var tooltip = d3.select("body")
+        .append("div")
+        .attr("class", "tooltip");
+
+
+  </script>
+</body>
+</html>

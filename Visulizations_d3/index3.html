@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Bubble Chart</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+  </head>
+  <body>
+    <div id="chart"></div>
+    <script>
+      // Set the dimensions and margins of the graph
+      var margin = {top: 10, right: 30, bottom: 50, left: 60},
+          width = 700 - margin.left - margin.right,
+          height = 500 - margin.top - margin.bottom;
+
+      // Append the svg object to the body of the page
+      var svg = d3.select("#chart")
+        .append("svg")
+          .attr("width", width + margin.left + margin.right)
+          .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+          .attr("transform",
+                "translate(" + margin.left + "," + margin.top + ")");
+
+      // Load the data
+      d3.csv("data1.csv").then(function(data) {
+        console.log(data);
+        // Convert the data to the appropriate format
+        data.forEach(function(d) {
+          d.x = +d.x;
+          d.y = +d.y;
+          d.r = +d.r;
+       
+
+        // Add X axis
+        var x = d3.scaleLinear()
+          .domain([d3.min(data, function(d) { return d.x; }), d3.max(data, function(d) { return d.x; })])
+          .range([ 0, width ]);
+        svg.append("g")
+          .attr("transform", "translate(0," + height + ")")
+          .call(d3.axisBottom(x));
+
+        // Add Y axis
+        var y = d3.scaleLinear()
+          .domain([d3.min(data, function(d) { return d.y; }), d3.max(data, function(d) { return d.y; })])
+          .range([ height, 0]);
+        svg.append("g")
+          .call(d3.axisLeft(y));
+
+        });
+
+        // Add a scale for bubble size
+        var z = d3.scaleLinear()
+          .domain([d3.min(data, function(d) { return d.r; }), d3.max(data, function(d) { return d.r; })])
+          .range([ 4, 40]);
+
+        // Add bubbles
+        svg.selectAll("circle")
+          .data(data)
+          .enter()
+          .append("circle")
+            .attr("cx", function(d) { return x(d.x); })
+            .attr("cy", function(d) { return y(d.y); })
+            .attr("r", function(d) { return z(d.r); })
+            .style("fill", "#69b3a2")
+            .style("opacity", "0.7")
+            .attr("stroke", "black")
+
+      
+    });
+    </script>
+  </body>
+</html>

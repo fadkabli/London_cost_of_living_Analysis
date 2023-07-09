@@ -1,0 +1,31 @@
+borough,x,y,cost_of_living
+Barnet,20,0,0.62
+Bexley,40,0,0.36
+Brent,60,0,0.71
+Bromley,80,0,0.56
+Camden,100,0,0.93
+Croydon,120,0,0.41
+Ealing,140,0,0.66
+Enfield,160,0,0.47
+Greenwich,180,0,0.39
+Hackney,200,0,0.77
+Hammersmith and Fulham,220,0,0.85
+Haringey,240,0,0.67
+Harrow,260,0,0.57
+Havering,280,0,0.32
+Hillingdon,300,0,0.5
+Hounslow,320,0,0.55
+Islington,340,0,0.87
+Kensington and Chelsea,360,0,0.97
+Kingston upon Thames,380,0,0.62
+Lambeth,400,0,0.7
+Lewisham,420,0,0.48
+Merton,440,0,0.63
+Newham,460,0,0.46
+Redbridge,480,0,0.44
+Richmond upon Thames,500,0,0.78
+Southwark,520,0,0.72
+Sutton,540,0,0.49
+Tower Hamlets,560,0,0.71
+Waltham Forest,580,0,0.52
+Wandsworth,600,0,0.82

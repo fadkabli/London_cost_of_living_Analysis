@@ -1,0 +1,92 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Cost of Living - V3</title>
+  <style>
+    /* Set the font style */
+    body {
+      font: 12px Arial;
+    }
+
+    /* Style the tooltip */
+    .tooltip {
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      border-radius: 5px;
+      padding: 10px;
+      font-size: 14px;
+      opacity: 0;
+      position: absolute;
+      z-index: 1;
+    }
+  </style>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+  <h1>Cost of Living - Line Graph - 10 year Comparison</h1>
+  <div id="chart"></div>
+
+  <script>
+    // Set the dimensions of the chart
+    const margin = { top: 20, right: 20, bottom: 30, left: 50 };
+    const width = 960 - margin.left - margin.right;
+    const height = 500 - margin.top - margin.bottom;
+
+    // Set the x and y scales
+    const x = d3.scaleLinear().range([0, width]);
+    const y = d3.scaleLinear().range([height, 0]);
+
+    // Define the line function
+    const line = d3.line()
+      .x(d => x(d.year))
+      .y(d => y(d.cost));
+
+    // Create the SVG element and append a group element
+    const svg = d3.select("#chart")
+      .append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform", `translate(${margin.left},${margin.top})`);
+
+    // Load the data
+    d3.csv("Living_1.csv").then((data) => {
+
+      // Convert the data to the appropriate format
+      data.forEach(d => {
+        d.year = +d.year;
+        d.housing = +d.housing;
+        d.transportation = +d.transportation;
+        d.food = +d.food;
+      });
+
+      // Set the domains of the x and y scales
+      x.domain(d3.extent(data, d => d.year));
+      y.domain([0, d3.max(data, d => d3.max([d.housing, d.transportation, d.food]))]);
+
+      // Add the x-axis
+      svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", `translate(0,${height})`)
+        .call(d3.axisBottom(x));
+
+      // Add the y-axis
+      svg.append("g")
+        .attr("class", "y axis")
+        .call(d3.axisLeft(y));
+
+      // Add the lines
+      const categories = ["housing", "transportation", "food"];
+      categories.forEach(category => {
+        const categoryData = data.map(d => ({ year: d.year, cost: d[category] }));
+        svg.append("path")
+          .datum(categoryData)
+          .attr("class", `line ${category}`)
+          .attr("d", line);
+      });
+    }).catch((error) => {
+      console.error(error);
+    });
+  </script>
+</body>
+</html>
